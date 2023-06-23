@@ -1,14 +1,12 @@
-import React, { useState, useReducer } from "react"
 import { DateTime } from "luxon"
 import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 import { Form, InputGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify';
 
-import { useForm } from "../../hooks/useForm"
 import { setWindowClass } from '../../utils/helpers'
 import { setAuthentication } from '../../store/reducers/auth'
 import { authLogin } from '../../utils/oidc-providers';
@@ -22,22 +20,22 @@ const Login = () => {
 
   // Stores data received by endpoint response
   //const [ logged, setLogged ] = useState("not_sended");
-  const [isAuthLoading, setAuthLoading] = useState(false)
+  //const [isAuthLoading, setAuthLoading] = useState(false)
   //const [ message, setMessage ] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
   const login = async(login: string, password: string) => {
     try {
-      setAuthLoading(true)
+      //setAuthLoading(true)
       const response = await authLogin(login, password)
       dispatch(setAuthentication(response as any))
       // Show message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
       toast.success('Login is succeed!')
-      setAuthLoading(false)
+      //setAuthLoading(false)
       navigate('/')
     } catch (error: any) {
-      setAuthLoading(false);
+      //setAuthLoading(false);
       // Show error message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
       toast.error(error.message || 'Failed');
     }

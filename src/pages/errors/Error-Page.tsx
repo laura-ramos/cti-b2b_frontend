@@ -22,7 +22,7 @@ export default function ErrorPage() {
             <h3><i className="fas fa-exclamation-triangle text-danger"></i> Oops!
               Sorry, something went wrong.
             </h3>
-            <p><i>{error.statusText || error.message}</i></p>
+            <p><i>{/*error.statusText || error.message*/}ERROR</i></p>
             <p>
               We will work on fixing that right away.
               Meanwhile, you may <Link to="/">return to Home</Link> or try using the search form.
