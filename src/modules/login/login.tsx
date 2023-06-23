@@ -1,18 +1,19 @@
 import React, { useState, useReducer } from "react"
-import jwt_decode from 'jwt-decode'
-import { DateTime } from "luxon";
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
-
-import * as Yup from 'yup';
-import { Form, InputGroup } from 'react-bootstrap';
+import { DateTime } from "luxon"
+import { Link, useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import * as Yup from 'yup'
+import { Form, InputGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify';
 
 import { useForm } from "../../hooks/useForm"
 import { setWindowClass } from '../../utils/helpers'
+import { setAuthentication } from '../../store/reducers/auth'
+import { authLogin } from '../../utils/oidc-providers';
 //import useAuth from "../../hooks/useAuth"
-import { Global } from '../../utils/Global'
+
 //import { User } from "src/types"
 
 const Login = () => {
@@ -21,54 +22,24 @@ const Login = () => {
 
   // Stores data received by endpoint response
   //const [ logged, setLogged ] = useState("not_sended");
-  const [isAuthLoading, setAuthLoading] = useState(false);
-  const [ message, setMessage ] = useState("");
-
-  {/* Send information to backend API */}
+  const [isAuthLoading, setAuthLoading] = useState(false)
+  //const [ message, setMessage ] = useState("")
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
   const login = async(login: string, password: string) => {
     try {
-      let getUserInfo = "login: " + login + "password: " + password //formData;  
-          // Send info to backend and find user in DB
-          console.log(getUserInfo)
-      const requestAPI = await fetch(Global.url + "/api/restful/user/login", {
-        method: "POST",
-        body: JSON.stringify(getUserInfo),
-        headers: {"Content-type":"application/json"}
-      });
-
-      // Save data retrieved inside browser
-      const fetchData = await requestAPI.json();
-
-      if ( fetchData.error ) {
-        //setLogged("error");
-        //setMessage(fetchData.error.message);
-        console.log(message);
-      } else {
-        //setLogged("loginOK");
-        let userInfo = jwt_decode(fetchData.token);
-
-        // Persist received data inside the browser
-        localStorage.setItem("token", fetchData.token);
-        localStorage.setItem("user", JSON.stringify(userInfo));
-
-        // Set received data in auth hook
-        //setAuth(userInfo);
-
-        // Always redirect after successful login
-        //window.location.assign("/dashboard");
-
-      } 
+      setAuthLoading(true)
+      const response = await authLogin(login, password)
+      dispatch(setAuthentication(response as any))
+      // Show message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
+      toast.success('Login is succeed!')
+      setAuthLoading(false)
+      navigate('/')
     } catch (error: any) {
       setAuthLoading(false);
-      if (error.message === "Failed to fetch") {
-        var displayMessage = "Server conection failed. Please try again in a few minutes"
-      } else {
-        displayMessage = error.message
-      }
-
       // Show error message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
-      toast.error(displayMessage || 'Failed');
-      
+      toast.error(error.message || 'Failed');
     }
   };
 

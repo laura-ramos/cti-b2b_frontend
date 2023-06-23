@@ -77,7 +77,6 @@ export default function Root() {
   }, [screenSize, menuSidebarCollapsed])
 
   const getAppTemplate = useCallback(() => {
-    {/*}
     if (!isAppLoaded) {
       return (
         <div className="preloader flex-column justify-content-center align-items-center">
@@ -91,7 +90,6 @@ export default function Root() {
         </div>
       );
     }
-  */}
     return (
       <>
         <Header />
