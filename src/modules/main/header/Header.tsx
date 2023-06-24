@@ -9,7 +9,7 @@ import NotificationsDropdown from './submenus-dropdown/NotificationsDropdown'
 import LanguagesDropdown from './submenus-dropdown/LanguagesDropdown';
 
 const Header = () => {
-  const [t] = useTranslation();
+  const [t] = useTranslation()
   const dispatch = useDispatch()
   const navbarVariant = useSelector((state: any) => state.ui.navbarVariant)
   const headerBorder = useSelector((state: any) => state.ui.headerBorder)

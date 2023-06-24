@@ -1,7 +1,8 @@
+import { useEffect } from "react"
 import { DateTime } from "luxon"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-// import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 import { Form, InputGroup } from 'react-bootstrap'
@@ -13,30 +14,26 @@ import { authLogin } from '../../utils/oidc-providers';
 //import useAuth from "../../hooks/useAuth"
 
 //import { User } from "src/types"
-
 const Login = () => {
-  // Collect user input
-  //const { formData, userInput } = useForm(INITIAL_STATE);
-
-  // Stores data received by endpoint response
-  //const [ logged, setLogged ] = useState("not_sended");
-  //const [isAuthLoading, setAuthLoading] = useState(false)
-  //const [ message, setMessage ] = useState("")
+  const {t, i18n} = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
+  // For first time accesss, set the user prefered language
+  useEffect(() => {
+    var userLang = navigator.language
+    userLang = userLang.slice(0, 2)
+    i18n.changeLanguage(userLang)
+  }, [])
+
   const login = async(login: string, password: string) => {
     try {
-      //setAuthLoading(true)
       const response = await authLogin(login, password)
       dispatch(setAuthentication(response as any))
-      // Show message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
+      // Show messages using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
       toast.success('Login is succeed!')
-      //setAuthLoading(false)
       navigate('/')
     } catch (error: any) {
-      //setAuthLoading(false);
-      // Show error message using React-toastify. Ref.: https://fkhadra.github.io/react-toastify
       toast.error(error.message || 'Failed');
     }
   };
@@ -49,13 +46,13 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       login: Yup.string()
-        .min(5, 'Must be 5 characters or more')
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
+        .min(5, t<string>('login.validation.min'))
+        .max(15, t<string>('login.validation.max'))
+        .required(t<string>('globalMessages.input.required')),
       password: Yup.string()
-        .min(12, 'Must be 12 characters or more')
-        .max(30, 'Must be 30 characters or less')
-        .required('Required'),
+        .min(12, t<string>('login.validation.minPass'))
+        .max(30, t<string>('login.validation.maxPass'))
+        .required(t<string>('globalMessages.input.required')),
     }),
     onSubmit: (values) => {
       login(values.login, values.password);
@@ -79,7 +76,7 @@ const Login = () => {
         <div className="lockscreen-item">
           {/* lockscreen image */}
           <div className="lockscreen-image">
-            <img src="../../dist/img/user1-128x128.jpg" alt="User Image" />
+            <img src="adminlte/dist/img/user1-128x128.jpg" alt="User Image" />
           </div>
           {/* /.lockscreen-image */}
 
@@ -145,15 +142,22 @@ const Login = () => {
         {/* /.lockscreen-item */}
         
         <div className="help-block text-center">
-          Enter your password to retrieve your session
+          To start working, please log in
         </div>
         <div className="text-center">
-          <a href="login.html">Or sign in as a different user</a>
+          <NavLink to="/password/reset" className="text-danger">I forgot my password</NavLink>
+        </div>
+        <div className="help-block text-center">
+          <br />
+          <small>
+            If you reached this website by mistake, here you can consult the
+            <a href="#" className="text-danger"> official site</a> of COATI Technologies
+          </small>
         </div>
         <div className="lockscreen-footer text-center">
-          Copyright © 2014-2021 <b><a href="https://adminlte.io" className="text-warning">AdminLTE.io</a></b>
+          Copyright © 2014-2021 <a href="https://adminlte.io" className="text-warning">AdminLTE.io</a>
           <br/>&nbsp;2018-{DateTime.now().toFormat("y")} 
-          <b><a href="#" className="text-warning">&nbsp;COATI Technologies</a></b><br/>
+          <a href="#" className="text-warning">&nbsp;COATI Technologies</a><br/>
           All rights reserved
         </div>
         

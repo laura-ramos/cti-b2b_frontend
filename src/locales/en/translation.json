@@ -4,7 +4,7 @@
       "signIn": "Sign in to start your session",
       "rememberMe": "Remember Me",
       "forgotPass": "I forgot my password",
-      "registerNew": "Register a new membership"
+      "registerNew": "Register a new membership"      
     },
     "button": {
       "signIn": {
@@ -16,6 +16,12 @@
         "social": "Sign up using {{what}}"
       },
       "signOut": "Sign Out"
+    },
+    "validation": {
+      "min": "Must be 5 characters or more",
+      "max": "Must be 15 characters or less",
+      "minPass": "Must be 12 characters or more",
+      "maxPass": "Must be 30 characters or less"
     }
   },
   "register": {
@@ -94,5 +100,10 @@
   },
   "measurement": {
     "quantityUnit": "{{quantity}} {{unit}}"
+  },
+  "globalMessages": {
+    "input": {
+      "required": "Required-jajaja"
+    }
   }
 }

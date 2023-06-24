@@ -16,6 +16,10 @@
         "social": "Sign up using {{what}}"
       },
       "signOut": "Sign Out"
+    },
+    "validation": {
+      "min": "Deben ser 5 caracteres o más",
+      "max": "Deben ser 15 caracteres o menos"
     }
   },
   "register": {
@@ -94,5 +98,10 @@
   },
   "measurement": {
     "quantityUnit": "{{quantity}} {{unit}}"
+  },
+  "globalMessages": {
+    "input": {
+      "required": "Obligatorio"
+    }
   }
 }
