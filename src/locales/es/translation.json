@@ -1,10 +1,19 @@
 {
   "login": {
+    "placeholder": {
+      "username": "Usuario",
+      "password": "Contraseña"
+    },
     "label": {
       "signIn": "Sign in to start your session",
       "rememberMe": "Remember Me",
       "forgotPass": "I forgot my password",
-      "registerNew": "Register a new membership"
+      "registerNew": "Register a new membership",
+      "helpText": "Para comenzar a trabajar, por favor inicie la sesión",
+      "forgotPassword": "Olvide mi contraseña",
+      "reachedMistake": "Si ha llegado a este sitio web por error, aquí puede consultar el",
+      "site": "sitio oficial",
+      "coati": "de COATI Technologies"
     },
     "button": {
       "signIn": {
@@ -16,6 +25,12 @@
         "social": "Sign up using {{what}}"
       },
       "signOut": "Sign Out"
+    },
+    "validation": {
+      "min": "Deben ser 5 caracteres o más",
+      "max": "Deben ser 15 caracteres o menos",
+      "minPass": "Deben ser 12 caracteres o más",
+      "maxPass": "Deben ser 30 caracteres o menos"
     }
   },
   "register": {
@@ -94,5 +109,10 @@
   },
   "measurement": {
     "quantityUnit": "{{quantity}} {{unit}}"
+  },
+  "globalMessages": {
+    "input": {
+      "required": "Obligatorio"
+    }
   }
 }
