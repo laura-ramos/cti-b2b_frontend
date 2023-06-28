@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify'
 import { Provider } from 'react-redux';
 
 import Login from "./modules/login/login"
+import ResetPassword from "./modules/login/ResetPassword"
+import RecoverPassword from "./modules/login/RecoverPassword"
 import Root from "./routes/Root"
 import ErrorPage from "./pages/errors/Error-Page"
 import './utils/i18n'
@@ -20,6 +22,16 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/password/reset",
+    element: <ResetPassword />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/password/recover",
+    element: <RecoverPassword />,
     errorElement: <ErrorPage />,
   },
   // Private routes star here.
