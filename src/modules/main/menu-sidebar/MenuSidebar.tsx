@@ -60,7 +60,7 @@ const StyledUserImage = styled(PfImage)`
 `;
 
 const MenuSidebar = () => {
-  const authentication = useSelector((state: any) => state.auth.authentication);
+  //const authentication = useSelector((state: any) => state.auth.authentication);
   const sidebarSkin = useSelector((state: any) => state.ui.sidebarSkin);
   const menuItemFlat = useSelector((state: any) => state.ui.menuItemFlat);
   const menuChildIndent = useSelector((state: any) => state.ui.menuChildIndent);

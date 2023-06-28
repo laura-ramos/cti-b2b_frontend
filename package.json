@@ -12,6 +12,7 @@
   "dependencies": {
     "@profabric/react-components": "^0.1.7",
     "@reduxjs/toolkit": "^1.9.5",
+    "admin-lte": "^3.2.0",
     "bootstrap": "^5.3.0",
     "formik": "^2.4.1",
     "i18next": "^22.5.1",
@@ -31,6 +32,8 @@
     "@types/luxon": "^3.3.0",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/react-router": "^5.1.20",
+    "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
