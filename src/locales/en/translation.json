@@ -1,10 +1,19 @@
 {
   "login": {
+    "placeholder": {
+      "username": "Username",
+      "password": "Password"
+    },
     "label": {
       "signIn": "Sign in to start your session",
       "rememberMe": "Remember Me",
       "forgotPass": "I forgot my password",
-      "registerNew": "Register a new membership"      
+      "registerNew": "Register a new membership",
+      "helpText": "To start working, please log in",
+      "forgotPassword": "I forgot my password",
+      "reachedMistake": "If you reached this website by mistake, here you can consult the",
+      "site": "official site",
+      "coati": "of COATI Technologies"
     },
     "button": {
       "signIn": {

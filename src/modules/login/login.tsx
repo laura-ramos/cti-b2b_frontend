@@ -91,7 +91,7 @@ const Login = () => {
                   id="cti-login"
                   name="login"
                   type="text"
-                  placeholder="Username"
+                  placeholder={t<string>('login.placeholder.username')}
                   onChange={handleChange}
                   value={values.login}
                   isValid={touched.login && !errors.login}
@@ -114,7 +114,7 @@ const Login = () => {
                   id="cti-password"
                   name="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder={t<string>('login.placeholder.password')}
                   onChange={handleChange}
                   value={values.password}
                   isValid={touched.password && !errors.password}
@@ -142,16 +142,16 @@ const Login = () => {
         {/* /.lockscreen-item */}
         
         <div className="help-block text-center">
-          To start working, please log in
+         {t<string>('login.label.helpText')}
         </div>
         <div className="text-center">
-          <NavLink to="/password/reset" className="text-danger">I forgot my password</NavLink>
+          <NavLink to="/password/reset" className="text-danger">{t<string>('login.label.forgotPassword')}</NavLink>
         </div>
         <div className="help-block text-center">
           <br />
           <small>
-            If you reached this website by mistake, here you can consult the
-            <a href="#" className="text-danger"> official site</a> of COATI Technologies
+          {t<string>('login.label.reachedMistake')}
+            <a href="#" className="text-danger"> {t<string>('login.label.site')}</a> {t<string>('login.label.coati')}
           </small>
         </div>
         <div className="lockscreen-footer text-center">
