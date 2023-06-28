@@ -76,7 +76,7 @@ const Login = () => {
         <div className="lockscreen-item">
           {/* lockscreen image */}
           <div className="lockscreen-image">
-            <img src="adminlte/dist/img/user1-128x128.jpg" alt="User Image" />
+            <img src="/img/user.png" alt="User Image" />
           </div>
           {/* /.lockscreen-image */}
 
@@ -120,16 +120,16 @@ const Login = () => {
                   isValid={touched.password && !errors.password}
                   isInvalid={touched.password && !!errors.password}
                 />
-                {touched.password && errors.password ? (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                ) : (null)}
                 <div className="input-group-append">
                   <button type="submit" className="btn">
                     <i className="fas fa-arrow-right text-muted" />
                   </button>
                 </div>
+                {touched.password && errors.password ? (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+                ) : (null)}
               </InputGroup>
               
             </div>

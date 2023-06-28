@@ -14,13 +14,13 @@ const RecoverPassword = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(5, 'password.validation.min')
-        .max(15, 'password.validation.max')
-        .required('globalMessages.input.required'),
+        .min(5, 'Must be 5 characters or more')
+        .max(15, 'Must be 30 characters or less')
+        .required('Required'),
       confirm_password: Yup.string()
-        .min(5, 'password.validation.min')
-        .max(15, 'password.validation.max')
-        .required('globalMessages.input.required'),
+        .min(5, 'Must be 5 characters or more')
+        .max(15, 'Must be 30 characters or less')
+        .required('Required'),
     }),
     onSubmit: (values) => {
       console.log(values)
@@ -71,19 +71,19 @@ const RecoverPassword = () => {
                   isValid={touched.confirm_password && !errors.confirm_password}
                   isInvalid={touched.confirm_password && !!errors.confirm_password}
                 />
-                {touched.confirm_password && errors.confirm_password ? (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.confirm_password}
-                  </Form.Control.Feedback>
-                ) : (null)}
                 <div className="input-group-append">
                   <button type="submit" className="btn">
                     <i className="fas fa-arrow-right text-muted" />
                   </button>
                 </div>
+                {touched.confirm_password && errors.confirm_password ? (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.confirm_password}
+                  </Form.Control.Feedback>
+                ) : (null)}
+
               </InputGroup>
             </form>
-          
           </Card.Body>
         </Card>
 

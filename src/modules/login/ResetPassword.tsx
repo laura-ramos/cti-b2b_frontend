@@ -13,7 +13,7 @@ const ResetPassword = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('globalMessages.input.required'),
+        .required('Required'),
     }),
     onSubmit: (values) => {
       //send email
@@ -47,22 +47,18 @@ const ResetPassword = () => {
                   isValid={touched.email && !errors.email}
                   isInvalid={touched.email && !!errors.email}
                 />
-                
-                {touched.email && errors.email ? (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.email}
-                  </Form.Control.Feedback>
-                ) : (null)}
                 <div className="input-group-append">
                   <button type="submit" className="btn">
                     <i className="fas fa-arrow-right text-muted" />
                   </button>
                 </div>
+                {touched.email && errors.email ? (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                ) : (null)}
               </InputGroup>
-              
-              
             </form>
-          
           </Card.Body>
         </Card>
 
