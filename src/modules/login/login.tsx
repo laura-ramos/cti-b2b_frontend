@@ -96,6 +96,7 @@ const Login = () => {
                   value={values.login}
                   isValid={touched.login && !errors.login}
                   isInvalid={touched.login && !!errors.login}
+                  autoFocus
                 />
                 <div className="input-group-append">
                   <button type="button" className="btn">
