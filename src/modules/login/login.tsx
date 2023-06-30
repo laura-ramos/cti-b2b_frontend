@@ -83,7 +83,7 @@ const Login = () => {
           {/* lockscreen credentials (contains the form) */}
           <form className="lockscreen-credentials" onSubmit={handleSubmit}>
             <div className="input-group">
-              <InputGroup className="mb-1">
+              <InputGroup className="mb-1 mt-1">
                 <InputGroup.Text>
                   <i className="fas fa-user" />
                 </InputGroup.Text>
@@ -111,7 +111,7 @@ const Login = () => {
               </InputGroup>
             </div>
             <div className="input-group">
-              <InputGroup className="">
+              <InputGroup className="mb-1">
                 <InputGroup.Text>
                     <i className="fas fa-lock" />
                 </InputGroup.Text>
