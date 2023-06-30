@@ -51,7 +51,7 @@ const RecoverPassword = () => {
               {t<string>('recover.oneStepAway')}
             </p>
             <form className='lockscreen-credentials' onSubmit={handleSubmit}>
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-2">
                 <InputGroup.Text className=""><i className="fas fa-lock" /></InputGroup.Text>
                 <Form.Control 
                   id="password"
