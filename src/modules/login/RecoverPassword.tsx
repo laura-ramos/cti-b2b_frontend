@@ -4,8 +4,17 @@ import { setWindowClass } from '../../utils/helpers'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { DateTime } from 'luxon'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const RecoverPassword = () => {
+  const {t, i18n} = useTranslation()
+  // For first time accesss, set the user prefered language
+  useEffect(() => {
+    var userLang = navigator.language
+    userLang = userLang.slice(0, 2)
+    i18n.changeLanguage(userLang)
+  }, [])
 
   const { handleChange, values, handleSubmit, touched, errors } = useFormik({
     initialValues: {
@@ -14,13 +23,14 @@ const RecoverPassword = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(5, 'Must be 5 characters or more')
-        .max(15, 'Must be 30 characters or less')
-        .required('Required'),
+        .min(5, t<string>('login.validation.minPass'))
+        .max(30, t<string>('login.validation.maxPass'))
+        .required(t<string>('globalMessages.input.required')),
       confirm_password: Yup.string()
-        .min(5, 'Must be 5 characters or more')
-        .max(15, 'Must be 30 characters or less')
-        .required('Required'),
+        .min(5, t<string>('login.validation.minPass'))
+        .max(30, t<string>('login.validation.maxPass'))
+        .required(t<string>('globalMessages.input.required'))
+        .oneOf([Yup.ref('password')], 'Passwords does not match'),
     }),
     onSubmit: (values) => {
       console.log(values)
@@ -38,7 +48,7 @@ const RecoverPassword = () => {
         <Card>
           <Card.Body>
             <p className="text-center">
-            You are only one step a way from your new password, recover your password now.
+              {t<string>('recover.oneStepAway')}
             </p>
             <form className='lockscreen-credentials' onSubmit={handleSubmit}>
               <InputGroup className="mb-3">
@@ -52,6 +62,7 @@ const RecoverPassword = () => {
                   value={values.password}
                   isValid={touched.password && !errors.password}
                   isInvalid={touched.password && !!errors.password}
+                  autoFocus
                 />
                 {touched.password && errors.password ? (
                   <Form.Control.Feedback type="invalid">
@@ -89,17 +100,14 @@ const RecoverPassword = () => {
 
         {/* /.lockscreen-item */}
         
-        <div className="help-block text-center">
-          To start working, please log in
-        </div>
         <div className="text-center">
-          <NavLink to="/login" className="text-danger">Login</NavLink>
+          <NavLink to="/login" className="text-danger">Back to login</NavLink>
         </div>
         <div className="help-block text-center">
           <br />
           <small>
-            If you reached this website by mistake, here you can consult the
-            <a href="#" className="text-danger"> official site</a> of COATI Technologies
+          {t<string>('login.label.reachedMistake')}
+            <a href="#" className="text-danger"> {t<string>('login.label.site')}</a> {t<string>('login.label.coati')}
           </small>
         </div>
         <div className="lockscreen-footer text-center">

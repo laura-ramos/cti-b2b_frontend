@@ -4,8 +4,17 @@ import { useFormik } from 'formik'
 import { setWindowClass } from '../../utils/helpers'
 import { Link, NavLink } from 'react-router-dom'
 import { DateTime } from "luxon"
+import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 const ResetPassword = () => {
+  const {t, i18n} = useTranslation()
+  // For first time accesss, set the user prefered language
+  useEffect(() => {
+    var userLang = navigator.language
+    userLang = userLang.slice(0, 2)
+    i18n.changeLanguage(userLang)
+  }, [])
 
   const { handleChange, values, handleSubmit, touched, errors } = useFormik({
     initialValues: {
@@ -13,7 +22,7 @@ const ResetPassword = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('Required'),
+        .required(t<string>('globalMessages.input.required')),
     }),
     onSubmit: (values) => {
       //send email
@@ -32,7 +41,7 @@ const ResetPassword = () => {
         <Card>
           <Card.Body>
             <p className="text-center">
-            You forgot your password? Here you can easily retrieve a new password.
+              {t<string>('recover.forgotYourPassword')}
             </p>
             <form className='lockscreen-credentials' onSubmit={handleSubmit}>
               <InputGroup className="mb-3">
@@ -46,6 +55,7 @@ const ResetPassword = () => {
                   value={values.email}
                   isValid={touched.email && !errors.email}
                   isInvalid={touched.email && !!errors.email}
+                  autoFocus
                 />
                 <div className="input-group-append">
                   <button type="submit" className="btn">
@@ -64,17 +74,14 @@ const ResetPassword = () => {
 
         {/* /.lockscreen-item */}
         
-        <div className="help-block text-center">
-          To start working, please log in
-        </div>
         <div className="text-center">
-          <NavLink to="/login" className="text-danger">Login</NavLink>
+          <NavLink to="/login" className="text-danger">Back to login</NavLink>
         </div>
         <div className="help-block text-center">
           <br />
           <small>
-            If you reached this website by mistake, here you can consult the
-            <a href="#" className="text-danger"> official site</a> of COATI Technologies
+          {t<string>('login.label.reachedMistake')}
+            <a href="#" className="text-danger"> {t<string>('login.label.site')}</a> {t<string>('login.label.coati')}
           </small>
         </div>
         <div className="lockscreen-footer text-center">
