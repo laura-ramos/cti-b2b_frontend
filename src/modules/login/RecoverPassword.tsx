@@ -51,7 +51,7 @@ const RecoverPassword = () => {
               {t<string>('recover.oneStepAway')}
             </p>
             <form className='lockscreen-credentials' onSubmit={handleSubmit}>
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-1">
                 <InputGroup.Text className=""><i className="fas fa-envelope" /></InputGroup.Text>
                 <Form.Control 
                   id="password"
@@ -64,13 +64,18 @@ const RecoverPassword = () => {
                   isInvalid={touched.password && !!errors.password}
                   autoFocus
                 />
+                <div className="input-group-append">
+                  <button type="button" className="btn">
+                    <i className="fas fa-arrow-right text-white" />
+                  </button>
+                </div>
                 {touched.password && errors.password ? (
                   <Form.Control.Feedback type="invalid">
                     {errors.password}
                   </Form.Control.Feedback>
                 ) : (null)}
               </InputGroup>
-              <InputGroup className="mb-3">
+              <InputGroup className="">
                 <InputGroup.Text className=""><i className="fas fa-envelope" /></InputGroup.Text>
                 <Form.Control 
                   id="confirm_password"

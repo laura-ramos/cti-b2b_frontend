@@ -83,7 +83,7 @@ const Login = () => {
           {/* lockscreen credentials (contains the form) */}
           <form className="lockscreen-credentials" onSubmit={handleSubmit}>
             <div className="input-group">
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-1">
                 <InputGroup.Text>
                   <i className="fas fa-user" />
                 </InputGroup.Text>
@@ -97,6 +97,11 @@ const Login = () => {
                   isValid={touched.login && !errors.login}
                   isInvalid={touched.login && !!errors.login}
                 />
+                <div className="input-group-append">
+                  <button type="button" className="btn">
+                    <i className="fas fa-arrow-right text-white" />
+                  </button>
+                </div>
                 {touched.login && errors.login ? (
                   <Form.Control.Feedback type="invalid">
                     {errors.login}
@@ -106,7 +111,7 @@ const Login = () => {
               </InputGroup>
             </div>
             <div className="input-group">
-              <InputGroup className="mb-3">
+              <InputGroup className="">
                 <InputGroup.Text>
                     <i className="fas fa-lock" />
                 </InputGroup.Text>
