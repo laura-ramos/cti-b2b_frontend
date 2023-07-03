@@ -7,6 +7,7 @@ import {toggleControlSidebar, toggleSidebarMenu} from '../../../store/reducers/u
 import MessagesDropdown from './submenus-dropdown/MessagesDropdown'
 import NotificationsDropdown from './submenus-dropdown/NotificationsDropdown'
 import LanguagesDropdown from './submenus-dropdown/LanguagesDropdown';
+import UserDropdown from './submenus-dropdown/UserDropdown';
 
 const Header = () => {
   const [t] = useTranslation()
@@ -68,6 +69,7 @@ const Header = () => {
         <MessagesDropdown />
         <NotificationsDropdown />
         <LanguagesDropdown />
+        <UserDropdown />
         <li className="nav-item">
           <button
             type="button"
