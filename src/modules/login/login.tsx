@@ -76,14 +76,14 @@ const Login = () => {
         <div className="lockscreen-item">
           {/* lockscreen image */}
           <div className="lockscreen-image">
-            <img src="adminlte/dist/img/user1-128x128.jpg" alt="User Image" />
+            <img src="/img/user.png" alt="User Image" />
           </div>
           {/* /.lockscreen-image */}
 
           {/* lockscreen credentials (contains the form) */}
           <form className="lockscreen-credentials" onSubmit={handleSubmit}>
             <div className="input-group">
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-1 mt-1">
                 <InputGroup.Text>
                   <i className="fas fa-user" />
                 </InputGroup.Text>
@@ -96,7 +96,13 @@ const Login = () => {
                   value={values.login}
                   isValid={touched.login && !errors.login}
                   isInvalid={touched.login && !!errors.login}
+                  autoFocus
                 />
+                <div className="input-group-append">
+                  <button type="button" className="btn">
+                    <i className="fas fa-arrow-right text-white" />
+                  </button>
+                </div>
                 {touched.login && errors.login ? (
                   <Form.Control.Feedback type="invalid">
                     {errors.login}
@@ -106,7 +112,7 @@ const Login = () => {
               </InputGroup>
             </div>
             <div className="input-group">
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-1">
                 <InputGroup.Text>
                     <i className="fas fa-lock" />
                 </InputGroup.Text>
@@ -120,16 +126,16 @@ const Login = () => {
                   isValid={touched.password && !errors.password}
                   isInvalid={touched.password && !!errors.password}
                 />
-                {touched.password && errors.password ? (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                ) : (null)}
                 <div className="input-group-append">
                   <button type="submit" className="btn">
                     <i className="fas fa-arrow-right text-muted" />
                   </button>
                 </div>
+                {touched.password && errors.password ? (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+                ) : (null)}
               </InputGroup>
               
             </div>
