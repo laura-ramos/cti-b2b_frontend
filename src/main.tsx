@@ -16,6 +16,14 @@ import './utils/i18n'
 import './index.css'
 import store from './store/store';
 
+declare const window: any;
+
+window.PF = {
+  config: {
+    mode: 'bs4',
+  },
+};
+
 // Use the last version of React 
 const router = createBrowserRouter([
   // Public routes
