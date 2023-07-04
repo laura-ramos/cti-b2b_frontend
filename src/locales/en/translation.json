@@ -42,7 +42,9 @@
     "forgotYourPassword": "You forgot your password? Here you can easily retrieve a new password.",
     "oneStepAway": "You are only one step a way from your new password, recover your password now.",
     "changePassword": "Change Password",
-    "requestNewPassword": "Request New Password"
+    "requestNewPassword": "Request New Password",
+    "backToLogin": "Back to login",
+    "email": "Email"
   },
   "main": {
     "label": {

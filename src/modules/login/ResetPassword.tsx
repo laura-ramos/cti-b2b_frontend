@@ -50,7 +50,7 @@ const ResetPassword = () => {
                   id="email"
                   type="email" 
                   name="email"
-                  placeholder="Email"
+                  placeholder={t<string>('recover.email')}
                   onChange={handleChange}
                   value={values.email}
                   isValid={touched.email && !errors.email}
@@ -75,7 +75,7 @@ const ResetPassword = () => {
         {/* /.lockscreen-item */}
         
         <div className="text-center">
-          <NavLink to="/login" className="text-danger">Back to login</NavLink>
+          <NavLink to="/login" className="text-danger">{t<string>('recover.backToLogin')}</NavLink>
         </div>
         <div className="help-block text-center">
           <br />
