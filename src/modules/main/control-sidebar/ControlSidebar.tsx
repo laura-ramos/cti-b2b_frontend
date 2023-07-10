@@ -23,7 +23,7 @@ import {
   SIDEBAR_LIGHT_SKINS
 } from '../../../utils/themes'
 import useScrollPosition from '../../../hooks/useScrollPosition';
-
+import { Form } from 'react-bootstrap'
 
 const ControlSidebar = () => {
   const dispatch = useDispatch();
@@ -108,78 +108,63 @@ const ControlSidebar = () => {
 
       <div style={{padding: '8px 0'}}>
         <div className="mb-4">
-          <PfCheckbox checked={darkMode} onChange={handleDarkModeChange}>
-            Dark mode
-          </PfCheckbox>
-          <PfCheckbox checked={layoutBoxed} onChange={handleLayoutBoxedChange}>
-            Boxed (Broken when header or footer is fixed)
-          </PfCheckbox>
+          <Form.Check type='switch' label="Dark mode" checked={darkMode} onChange={handleDarkModeChange}/>
+          <Form.Check label="Boxed (Broken when header or footer is fixed)" checked={layoutBoxed} onChange={handleLayoutBoxedChange}/>
         </div>
 
         <h6>Header Options</h6>
 
         <div className="mb-4">
-          <PfCheckbox checked={headerFixed} onChange={handleHeaderFixedChange}>
-            Fixed
-          </PfCheckbox>
-          <PfCheckbox
+          <Form.Check label="Fixed" checked={headerFixed} onChange={handleHeaderFixedChange}/>
+          <Form.Check label="No Border"
             checked={headerBorder}
-            onChange={handleHeaderBorderChange}
-          >
-            No Border
-          </PfCheckbox>
+            onChange={handleHeaderBorderChange}/>
         </div>
 
         <h6>Sidebar Options</h6>
 
         <div className="mb-4">
-          <PfCheckbox
+          <Form.Check
+            label="Collapse"
             checked={menuSidebarCollapsed}
             onChange={handleMenuSidebarCollapsed}
-          >
-            Collapse
-          </PfCheckbox>
-          <PfCheckbox checked={layoutFixed} onChange={handleLayoutFixedChange}>
-            Fixed
-          </PfCheckbox>
-          <PfCheckbox
+          />
+          <Form.Check label="Fixed" checked={layoutFixed} onChange={handleLayoutFixedChange}/>
+          <Form.Check
+            label="Nav Flat Style"
             checked={menuItemFlat}
             onChange={handleMenuItemFlatChange}
-          >
-            Nav Flat Style
-          </PfCheckbox>
-          <PfCheckbox
+          />
+          <Form.Check
+            label="Nav Child Indent"
             checked={menuChildIndent}
             onChange={handleMenuChildIndentChange}
-          >
-            Nav Child Indent
-          </PfCheckbox>
+          />
         </div>
 
         <h6>Footer Options</h6>
 
         <div className="mb-4">
-          <PfCheckbox checked={footerFixed} onChange={handleFooterFixedChange}>
-            Fixed
-          </PfCheckbox>
+          <Form.Check label="Fixed" checked={footerFixed} onChange={handleFooterFixedChange}/>
         </div>
 
-        <PfSelect
-          className="mt-3"
-          value={navbarVariant}
-          label="Light Navbar Variants"
-          options={NAVBAR_LIGHT_VARIANTS}
-          onChange={(e: any) => onNavbarVariantChange(e.target.value)}
-          type="custom"
-        />
-        <PfSelect
-          className="mt-3"
-          label="Dark Navbar Variants"
-          value={navbarVariant}
-          options={NAVBAR_DARK_VARIANTS}
-          type="custom"
-          onChange={(e: any) => onNavbarVariantChange(e.target.value)}
-        />
+        <h6>Light Navbar Variants</h6>
+        <Form.Select className="form-control" value={navbarVariant} onChange={(e: any) => onNavbarVariantChange(e.target.value)}>
+          {NAVBAR_LIGHT_VARIANTS.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </Form.Select>
+        <h6>Dark Navbar Variants</h6>
+        <Form.Select className="form-control" value={navbarVariant} onChange={(e: any) => onNavbarVariantChange(e.target.value)}>
+          {NAVBAR_DARK_VARIANTS.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </Form.Select>
+
         <PfSelect
           className="mt-3"
           label="Accent Color Variants"
@@ -187,22 +172,25 @@ const ControlSidebar = () => {
           type="custom"
           disabled
         />
-        <PfSelect
-          className="mt-3"
-          label="Light Sidebar Variants"
-          value={sidebarSkin}
-          options={SIDEBAR_LIGHT_SKINS}
-          type="custom"
-          onChange={(e: any) => onSidebarSkinChange(e.target.value)}
-        />
-        <PfSelect
-          className="mt-3"
-          label="Dark Sidebar Variants"
-          value={sidebarSkin}
-          options={SIDEBAR_DARK_SKINS}
-          type="custom"
-          onChange={(e: any) => onSidebarSkinChange(e.target.value)}
-        />
+
+        <h6>Light Sidebar Variants</h6>
+        <Form.Select className="form-control" value={sidebarSkin} onChange={(e: any) => onSidebarSkinChange(e.target.value)}>
+          {SIDEBAR_LIGHT_SKINS.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </Form.Select>
+
+        <h6>Dark Sidebar Variants</h6>
+        <Form.Select className="form-control" value={sidebarSkin} onChange={(e: any) => onSidebarSkinChange(e.target.value)}>
+          {SIDEBAR_DARK_SKINS.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </Form.Select>
+
         <PfSelect
           className="mt-3"
           label="Brand Logo Variants"
