@@ -14,7 +14,7 @@ import {
   toggleLayoutFixed,
   toggleMenuChildIndent,
   toggleMenuItemFlat,
-  toggleSidebarMenu
+  toggleSidebarMenu,
 } from '../../../store/reducers/ui'
 import {
   NAVBAR_DARK_VARIANTS,
@@ -23,7 +23,7 @@ import {
   SIDEBAR_LIGHT_SKINS
 } from '../../../utils/themes'
 import useScrollPosition from '../../../hooks/useScrollPosition';
-import { Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 
 const ControlSidebar = () => {
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const ControlSidebar = () => {
   const menuSidebarCollapsed = useSelector(
     (state: any) => state.ui.menuSidebarCollapsed
   );
+  const ui = useSelector((state: any) => state.ui);
   const scrollPosition = useScrollPosition();
 
   const handleDarkModeChange = () => {
@@ -93,6 +94,14 @@ const ControlSidebar = () => {
     return `${73 - (scrollPosition <= 57 ? scrollPosition : 57)}px`;
   }, [scrollPosition, headerFixed]);
 
+  const saveCustomize = () => {
+    window.localStorage.setItem("ui-customize", JSON.stringify(ui));
+  };
+
+  const resetCustomize = () => {
+    window.localStorage.removeItem("ui-customize");
+  };
+  
   return (
     <aside
       className="control-sidebar control-sidebar-dark"
@@ -104,6 +113,10 @@ const ControlSidebar = () => {
       }}
     >
       <h5>Customize AdminLTE</h5>
+      <div className='text-center'>
+        <Button variant="light" onClick={saveCustomize} className='mr-2'>Save</Button>
+        <Button variant="dark"  onClick={resetCustomize}>Reset</Button>
+      </div>
       <hr className="mb-2" />
 
       <div style={{padding: '8px 0'}}>
