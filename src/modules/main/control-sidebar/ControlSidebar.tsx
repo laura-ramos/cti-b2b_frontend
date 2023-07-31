@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {PfCheckbox, PfSelect} from '@profabric/react-components';
 
@@ -15,6 +15,8 @@ import {
   toggleMenuChildIndent,
   toggleMenuItemFlat,
   toggleSidebarMenu,
+  setDataCustom,
+  reset,
 } from '../../../store/reducers/ui'
 import {
   NAVBAR_DARK_VARIANTS,
@@ -24,6 +26,7 @@ import {
 } from '../../../utils/themes'
 import useScrollPosition from '../../../hooks/useScrollPosition';
 import { Button, Form } from 'react-bootstrap'
+import { toast } from 'react-toastify';
 
 const ControlSidebar = () => {
   const dispatch = useDispatch();
@@ -96,12 +99,25 @@ const ControlSidebar = () => {
 
   const saveCustomize = () => {
     window.localStorage.setItem("ui-customize", JSON.stringify(ui));
+    toast.success('Customize AdminLTE saved')
   };
 
   const resetCustomize = () => {
-    window.localStorage.removeItem("ui-customize");
+    let data: any = localStorage.getItem('ui-customize');
+    if(data != null) {
+      dispatch(setDataCustom(JSON.parse(data)));
+    } else {
+      dispatch(reset());
+    }
   };
-  
+
+  useEffect(() => {
+    let data: any = localStorage.getItem('ui-customize');
+    if(data != null) {
+      dispatch(setDataCustom(JSON.parse(data)));
+    }
+  }, []);
+
   return (
     <aside
       className="control-sidebar control-sidebar-dark"
@@ -121,7 +137,7 @@ const ControlSidebar = () => {
 
       <div style={{padding: '8px 0'}}>
         <div className="mb-4">
-          <Form.Check type='switch' label="Dark mode" checked={darkMode} onChange={handleDarkModeChange}/>
+          <Form.Check label="Dark mode" checked={darkMode} onChange={handleDarkModeChange}/>
           <Form.Check label="Boxed (Broken when header or footer is fixed)" checked={layoutBoxed} onChange={handleLayoutBoxedChange}/>
         </div>
 

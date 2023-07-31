@@ -127,7 +127,28 @@ export const uiSlice = createSlice({
     },
     setWindowSize: (state, {payload}) => {
       state.screenSize = payload;
-    }
+    },
+    setDataCustom: (state, {payload}) => {
+      state.darkMode = payload.darkMode
+      state.navbarVariant = payload.navbarVariant
+      state.sidebarSkin = payload.sidebarSkin
+      state.menuSidebarCollapsed = payload.menuSidebarCollapsed
+      state.headerBorder = payload.headerBorder
+      state.headerFixed = payload.headerFixed
+      state.footerFixed = payload.footerFixed
+      state.layoutBoxed = payload.layoutBoxed
+      state.menuItemFlat = payload.menuItemFlat
+      state.menuChildIndent = payload.menuChildIndent
+      state.layoutFixed = payload.layoutFixed
+      setTimeout(() => {
+        if (payload.darkMode) {
+          addWindowClass('dark-mode');
+        } else {
+          removeWindowClass('dark-mode');
+        }
+      }, 100);
+    },
+    reset: () => initialState
   }
 });
 
@@ -144,7 +165,9 @@ export const {
   toggleLayoutBoxed,
   toggleMenuItemFlat,
   toggleMenuChildIndent,
-  toggleLayoutFixed
+  toggleLayoutFixed,
+  setDataCustom,
+  reset
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

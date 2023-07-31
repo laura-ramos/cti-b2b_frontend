@@ -4,12 +4,13 @@ import {Outlet} from 'react-router-dom'
 import {PfImage} from '@profabric/react-components';
 
 import ContentHeader from '../components/ContentHeader'
-import { setWindowClass, addWindowClass, removeWindowClass } from '../utils/helpers'
+import { addWindowClass, removeWindowClass, calculateWindowSize } from '../utils/helpers'
 import Header from '../modules/main/header/Header'
 import Footer from '../modules/main/footer/Footer'
 import MenuSidebar from '../modules/main/menu-sidebar/MenuSidebar'
 import ControlSidebar from '../modules/main/control-sidebar/ControlSidebar'
-import {toggleSidebarMenu} from '../store/reducers/ui';
+import {setWindowSize, toggleSidebarMenu} from '../store/reducers/ui';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 export default function Root() {
   const dispatch = useDispatch()
@@ -18,11 +19,9 @@ export default function Root() {
   const authentication = useSelector((state: any) => state.auth.authentication)
   const [isAppLoaded, setIsAppLoaded] = useState(false);
   
-  // Add AdminLTE CSS classes to Body tag
-  setWindowClass('hold-transition sidebar-mini layout-fixed')
-  
   // Reading all properties to control user interface appearance
   const screenSize = useSelector((state: any) => state.ui.screenSize)
+  const windowSize = useWindowSize();
 
   const controlSidebarCollapsed = useSelector(
     (state: any) => state.ui.controlSidebarCollapsed
@@ -75,6 +74,13 @@ export default function Root() {
       addWindowClass('sidebar-collapse')
     }
   }, [screenSize, menuSidebarCollapsed])
+
+  useEffect(() => {
+    const size = calculateWindowSize(windowSize.width);
+    if (screenSize !== size) {
+      dispatch(setWindowSize(size));
+    }
+  }, [windowSize]);
 
   const getAppTemplate = useCallback(() => {
     if (!isAppLoaded) {
