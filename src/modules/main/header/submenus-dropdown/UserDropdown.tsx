@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { PfDropdown, PfImage } from '@profabric/react-components';
+import { setAuthentication } from '../../../../store/reducers/auth';
 
 const StyledSmallUserImage = styled(PfImage)`
   margin-top: 2px;
@@ -64,7 +65,12 @@ const UserDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const logOut = async (event: any) => {
-
+    event.preventDefault();
+    setDropdownOpen(false);
+    dispatch(setAuthentication(undefined));
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   const navigateToProfile = (event: any) => {
