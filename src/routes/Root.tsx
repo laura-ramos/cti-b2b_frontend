@@ -100,7 +100,6 @@ export default function Root() {
           onClick={handleToggleMenuSidebar}
           onKeyDown={() => {}}
         />
-        <ContentHeader title="Home" />
         <div className="content-wrapper">
           <div className="pt-3" />
           <section className="content">
