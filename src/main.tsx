@@ -15,6 +15,15 @@ import ErrorPage from "./pages/errors/Error-Page"
 import './utils/i18n'
 import './index.css'
 import store from './store/store';
+import Dashboard from "./pages/Dashboard";
+
+declare const window: any;
+
+window.PF = {
+  config: {
+    mode: 'bs4',
+  },
+};
 
 // Use the last version of React 
 const router = createBrowserRouter([
@@ -39,6 +48,12 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
+    ],
   },
 ]);
 

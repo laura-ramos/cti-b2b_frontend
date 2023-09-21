@@ -86,8 +86,8 @@ const MenuSidebar = () => {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
             <StyledUserImage
-              src="/img/default-profile.png"
-              fallbackSrc="/img/default-profile.png"
+              src="/img/user.png"
+              fallbackSrc="/img/user.png"
               alt="User"
               width={34}
               height={34}
