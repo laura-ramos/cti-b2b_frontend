@@ -10,7 +10,7 @@
       "forgotPass": "I forgot my password",
       "registerNew": "Register a new membership",
       "helpText": "Para comenzar a trabajar, por favor inicie la sesión",
-      "forgotPassword": "Olvide mi contraseña",
+      "forgotPassword": "Olvidé mi contraseña",
       "reachedMistake": "Si ha llegado a este sitio web por error, aquí puede consultar el",
       "site": "sitio oficial",
       "coati": "de COATI Technologies"
@@ -39,10 +39,12 @@
     "label": "Register"
   },
   "recover": {
-    "forgotYourPassword": "You forgot your password? Here you can easily retrieve a new password.",
-    "oneStepAway": "You are only one step a way from your new password, recover your password now.",
-    "changePassword": "Change Password",
-    "requestNewPassword": "Request New Password"
+    "forgotYourPassword": "¿Ha olvidado su contraseña? Aquí puede obtener fácilmente una nueva contraseña.",
+    "oneStepAway": "Sólo está a un paso de su nueva contraseña, recupere su contraseña ahora.",
+    "changePassword": "Cambiar contraseña",
+    "requestNewPassword": "Solicitar nueva contraseña",
+    "backToLogin": "Volver al inicio de sesión",
+    "email": "Correo electronico"
   },
   "main": {
     "label": {
