@@ -101,10 +101,7 @@ export default function Root() {
           onKeyDown={() => {}}
         />
         <div className="content-wrapper">
-          <div className="pt-3" />
-          <section className="content">
-            <Outlet />
-          </section>
+          <Outlet />
         </div>
         <Footer />
         <ControlSidebar />

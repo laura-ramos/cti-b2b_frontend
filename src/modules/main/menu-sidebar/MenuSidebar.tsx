@@ -28,6 +28,11 @@ export const MENU: IMenuItem[] = [
     path: '/blank'
   },
   {
+    name: 'Users',
+    icon: 'fas fa-user nav-icon',
+    path: '/users'
+  },
+  {
     name: i18n.t('menusidebar.label.mainMenu'),
     icon: 'far fa-caret-square-down nav-icon',
     children: [
