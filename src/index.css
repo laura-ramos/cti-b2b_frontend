@@ -23,3 +23,11 @@
 .lockscreen-credentials input:focus {
   outline: 1px solid #80bdff;
 }
+
+.dark-mode .header-submenu {
+  background-color: #343a40;
+}
+
+.dark-mode .header-submenu a {
+  color: #fff;
+}

@@ -97,11 +97,13 @@ const ControlSidebar = () => {
     return `${73 - (scrollPosition <= 57 ? scrollPosition : 57)}px`;
   }, [scrollPosition, headerFixed]);
 
+  // save Customize AdminLTE data to local storage
   const saveCustomize = () => {
     window.localStorage.setItem("ui-customize", JSON.stringify(ui));
     toast.success('Customize AdminLTE saved')
   };
 
+  // reset data Customize AdminLTE
   const resetCustomize = () => {
     let data: any = localStorage.getItem('ui-customize');
     if(data != null) {
@@ -112,6 +114,7 @@ const ControlSidebar = () => {
   };
 
   useEffect(() => {
+    // get data customize from localstorage
     let data: any = localStorage.getItem('ui-customize');
     if(data != null) {
       dispatch(setDataCustom(JSON.parse(data)));

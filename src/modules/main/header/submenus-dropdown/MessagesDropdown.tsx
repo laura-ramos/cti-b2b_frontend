@@ -32,7 +32,7 @@ const MessagesDropdown = () => {
         <i className="far fa-comments" />
         <span className="badge badge-danger navbar-badge">3</span>
       </div>
-      <div slot="menu">
+      <div slot="menu" className='header-submenu'>
         <Link to="/" className="dropdown-item">
           <div className="media">
             <PfImage

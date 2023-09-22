@@ -88,7 +88,7 @@ const LanguagesDropdown = () => {
       <div className="nav-link" slot="button">
         <i className={`flag-icon ${getCurrentLanguage().icon}`} />
       </div>
-      <div slot="menu">
+      <div slot="menu" className='header-submenu'>
         {languages.map((language) => (
           <button
             type="button"

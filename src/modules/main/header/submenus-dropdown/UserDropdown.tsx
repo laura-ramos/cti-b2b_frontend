@@ -42,7 +42,6 @@ const UserBody = styled.li`
 `;
 
 const UserFooter = styled.li`
-  background-color: #f8f9fa;
   padding: 10px;
 `;
 
@@ -90,7 +89,7 @@ const UserDropdown = () => {
         height={25}
         rounded
       />
-      <div slot="menu">
+      <div slot="menu" className='header-submenu'>
         <UserHeader className="bg-primary">
           <StyledBigUserImage
             src={authentication.profile.picture}
