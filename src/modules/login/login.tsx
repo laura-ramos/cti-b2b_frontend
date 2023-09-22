@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 import { setWindowClass } from '../../utils/helpers'
 import { setAuthentication } from '../../store/reducers/auth'
-import { authLogin } from '../../utils/oidc-providers';
+import { authLogin, getAuthStatus } from '../../utils/oidc-providers';
 //import useAuth from "../../hooks/useAuth"
 
 //import { User } from "src/types"
@@ -24,6 +24,8 @@ const Login = () => {
     var userLang = navigator.language
     userLang = userLang.slice(0, 2)
     i18n.changeLanguage(userLang)
+    // check user session
+    checkSession()
   }, [])
 
   const login = async(login: string, password: string) => {
@@ -35,6 +37,19 @@ const Login = () => {
       navigate('/')
     } catch (error: any) {
       toast.error(error.message || 'Failed');
+    }
+  };
+
+  // Defines if user is authenticated or not.
+  const checkSession = async () => {
+    try {
+      let response: any = await getAuthStatus();
+      if (response) {
+        dispatch(setAuthentication(response));
+        navigate('/')
+      }
+    } catch (error: any) {
+      console.log(error)
     }
   };
 

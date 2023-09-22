@@ -1,15 +1,16 @@
 import {useState, useEffect, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import {PfImage} from '@profabric/react-components';
 
-import ContentHeader from '../components/ContentHeader'
 import { setWindowClass, addWindowClass, removeWindowClass } from '../utils/helpers'
 import Header from '../modules/main/header/Header'
 import Footer from '../modules/main/footer/Footer'
 import MenuSidebar from '../modules/main/menu-sidebar/MenuSidebar'
 import ControlSidebar from '../modules/main/control-sidebar/ControlSidebar'
 import {toggleSidebarMenu} from '../store/reducers/ui';
+import { getAuthStatus } from '../utils/oidc-providers';
+import { setAuthentication } from '../store/reducers/auth';
 
 export default function Root() {
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ export default function Root() {
   // Retrive user status from Reducer Store 
   const authentication = useSelector((state: any) => state.auth.authentication)
   const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const navigate = useNavigate();
   
   // Add AdminLTE CSS classes to Body tag
   setWindowClass('hold-transition sidebar-mini layout-fixed')
@@ -41,6 +43,19 @@ export default function Root() {
     setIsAppLoaded(Boolean(authentication))
   }, [authentication])
 
+  // Defines if user is authenticated or not.
+  const checkSession = async () => {
+    try {
+      let response: any = await getAuthStatus();
+      if (response) {
+        dispatch(setAuthentication(response));
+        setIsAppLoaded(false)
+      }
+    } catch (error: any) {
+      navigate('/login'); 
+    }
+  };
+
   useEffect(() => {
     if (controlSidebarCollapsed) {
       removeWindowClass('control-sidebar-slide-open')
@@ -50,6 +65,9 @@ export default function Root() {
   }, [screenSize, controlSidebarCollapsed])
 
   useEffect(() => {
+    // check user session
+    checkSession();
+
     removeWindowClass('register-page')
     removeWindowClass('login-page')
     removeWindowClass('hold-transition')

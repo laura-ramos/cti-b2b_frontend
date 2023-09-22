@@ -1,5 +1,6 @@
 import { Global } from './Global'
 import jwt_decode from 'jwt-decode'
+import { sleep } from './helpers'
 
 /**
  * Send information to backend API
@@ -41,3 +42,24 @@ export const authLogin = (login: string, password: string) => {
     }
   })
 }
+
+/**
+ * Validate user is logged
+ */ 
+export const getAuthStatus = () => {
+  return new Promise(async (res, rej) => {
+    await sleep(500);
+    try {
+      let token = localStorage.getItem('token');
+      let userInfo = localStorage.getItem('user');
+      if (userInfo && token) {
+        userInfo = JSON.parse(userInfo);
+        return res(userInfo);
+      } else {
+        return rej([]);
+      }
+    } catch (error) {
+      return rej(error);
+    }
+  });
+};
