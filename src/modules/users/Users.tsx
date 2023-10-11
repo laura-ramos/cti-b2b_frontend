@@ -1,15 +1,17 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import ContentHeader from "../../components/ContentHeader"
 import { ModalCustom } from "../../components/ModalCustom"
 import { FormRegister } from "./FormRegister"
 import { Table } from "../../components/Table"
-import { getAllUsers } from "../../services/Users"
 
 export const Users = () => {
   const [modal, setModal] = useState(false)
   const toggleModal = () => setModal(!modal);
   const URL_API = 'https://jsonplaceholder.typicode.com/users'
-  
+  const [idUser, setIdUser] = useState(0)
+  const [isAddMode, setIsAddMode] = useState(true)
+
+  // define table columns to show
   const columns = [
     {
       header: 'ID',
@@ -27,15 +29,48 @@ export const Users = () => {
       header: 'Email',
       accessorKey: 'email',
     },
-    /*{
+    {
+      header: 'Photo',
+      accessorKey: 'photo',
+      enableSorting: false,
+      cell: (data: any) => (
+        <img src={data.getValue() ?? '/img/user.png'} className="img-fluid rounded-circle" width='50px' />
+      ),
+    },
+    {
       header: 'Actions',
-      accessorKey: 'id',
-      cell: (row: any) => <button>Editar {row.getValue()}</button>,
-    },*/
+      accessorKey: 'status',
+      enableSorting: false,
+      cell: (data: any) => (
+        <div className="btn-group btn-group-sm">
+          <button className="btn btn-sm btn-secondary" onClick={() => editUser(data.row.original.id)}>
+            <i className="fas fa-pencil-alt text-white">
+          </i></button>
+          <button className={`btn btn-sm ${data.getValue() ? 'btn-success' : 'btn-warning disabled'}`} onClick={() => deleteUser(data.row.original.id)}>
+            <i className="fas fa-user-slash"></i>
+          </button>
+        </div>
+      ),
+    },
   ]
 
-  //const { data, error, loading } = getAllUsers('');
+  // open form to edit user by id 
+  const editUser = (id: number) => {
+    setModal(!modal)
+    setIsAddMode(false)
+    setIdUser(id)
+  }
 
+  // delete user
+  const deleteUser = (id: number) => {
+    //call service to desactivate user
+  }
+  // open form to create new users
+  const createUser = () => {
+    setIsAddMode(true)
+    setModal(!modal)
+    setIdUser(0)
+  }
   return (
     <>
       <ContentHeader title="Users" />
@@ -46,17 +81,18 @@ export const Users = () => {
               <div className="card card-primary card-outline">
                 <div className="card-header">
                   <h3 className="card-title"><i className="fas fa-user"></i> Users</h3>
-                  <button className="btn btn-primary btn-sm float-right" onClick={toggleModal}>
+                  <button className="btn btn-primary btn-sm float-right" onClick={createUser}>
                     <i className="fas fa-user-plus pr-1"></i> Agregar
                   </button>
                 </div>
-                <div className="card-body pad table-responsive">
+                <div className="card-body table-responsive">
                   <Table columns={columns} url={URL_API}/>
                 </div>
               </div>
             </div>
-            <ModalCustom title="Registro de usuarios" open={modal} handleClose={toggleModal}>
-              <FormRegister/>
+
+            <ModalCustom title={isAddMode ? "Registro de usuarios" : "Editar usuario"} open={modal} handleClose={toggleModal}>
+              <FormRegister isAddMode={isAddMode} idUser={idUser}/>
             </ModalCustom>
           </div>
         </div>

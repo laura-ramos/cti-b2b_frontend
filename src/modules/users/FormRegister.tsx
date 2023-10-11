@@ -2,12 +2,28 @@ import { useFormik } from 'formik';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import * as Yup from "yup";
-import { createUser } from '../../services/Users';
+import { createUser, getUser } from '../../services/Users';
 import { toast } from 'react-toastify';
 import { FormUser } from "../../interfaces";
+import { useEffect, useState } from 'react';
 
-export const FormRegister = () => {
-  const initialValues: FormUser = { name: '', surname: '', email: '', login: '', photo: '', password: '', confirm_password: '', rol: '' };
+interface Props {
+  isAddMode: boolean;
+  idUser: number;
+}
+
+export const FormRegister = ({isAddMode, idUser} : Props) => {
+  const [userForm, setUserForm] = useState<FormUser>({
+    name: '', 
+    surname: '', 
+    email: '', 
+    login: '', 
+    photo: '', 
+    password: '', 
+    confirm_password: '', 
+    rol: ''
+  });
+
   const validateUser = Yup.object().shape({
     name: Yup.string().required('Required').min(2, "The name field must be minimum 2 char"),
     surname: Yup.string().required('Required').min(2, 'The surname field must be minimum 2 char'),
@@ -19,7 +35,7 @@ export const FormRegister = () => {
   });
 
   const {handleChange, values, handleSubmit, touched, errors, isSubmitting} = useFormik({
-    initialValues: initialValues,
+    initialValues: userForm,
     validationSchema: validateUser,
     onSubmit: async (values, actions) => {
       const res = await createUser(values)
@@ -30,8 +46,25 @@ export const FormRegister = () => {
         actions.setErrors(res.validationError ?? [])
         toast.error(res.message)
       }
-    }
+    },
+    enableReinitialize: true,
   });
+
+  // get data user by id
+  const fetchData = async () => {
+    const res = await getUser(idUser)
+    if(res.status == 'success') {
+      setUserForm(res.data)
+    } else {
+      toast.error(res.message)
+    }
+  };
+
+  useEffect(() => {
+    if (!isAddMode) {
+      fetchData();
+    }
+  }, []);
 
   return (
     <>
@@ -139,7 +172,7 @@ export const FormRegister = () => {
         </Form.Group>
         <div className="border-top pt-3">
           <Button variant="primary" type="submit" disabled={isSubmitting}>
-            Submit
+             {isAddMode ? 'Save' : 'Save changes'}
           </Button>
         </div>
       </Form>

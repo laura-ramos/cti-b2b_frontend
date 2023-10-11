@@ -2,44 +2,19 @@ import { Global } from "../utils/Global";
 import { FormUser } from "../interfaces";
 import { useEffect, useState } from "react";
 
-export const getAllUsers = (url: string) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json', 
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    },
-  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(url, requestOptions);
-        const json = await res.json();
-        setData(json);
-        setLoading(false);
-        console.log(res)
-      } catch (error: any) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-  return { data, error, loading };
+/** Specify default headers to use. */
+const defaultHeaders = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer ' + localStorage.getItem('token')
 };
 
-
-export const getUser =  () => {
+// Get data all users
+export const getAllUsers = (url: string) => {
   
-}
+};
 
-
-
+// Create new users
 export const createUser = async (user: FormUser) => {
   try {
     const requestOptions = {
@@ -66,10 +41,32 @@ export const createUser = async (user: FormUser) => {
   }
 }
 
-export const updateUsers = () => {
+// Get data user by id
+export const getUser =  async (id: number) => {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: defaultHeaders
+    };
+    const response = await fetch(Global.url + '/api/restful/user/profile?id='+id, requestOptions);
+    const res_json = await response.json();
+    // return data user
+    return {status: 'success', data: res_json}
+  } catch (error: any) {
+    if (error.message === "Failed to fetch") {
+      return { status: 'error', message: 'Server conection failed. Please try again in a few minutes' }
+    } else {
+      return { status: 'error', message: error.message }
+    }
+  }
+}
+
+// Update user
+export const updateUser = () => {
   return []
 }
 
-export const deleteUsers = () => {
+// Disable user
+export const deleteUser = () => {
   return []
 }
