@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const useFetch = (url: string) => {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const requestOptions = {
     method: 'GET',
@@ -21,7 +21,11 @@ const useFetch = (url: string) => {
         setData(json);
         setLoading(false);
       } catch (error: any) {
-        setError(error);
+        if (error.message === "Failed to fetch") {
+          setError('Server conection failed. Please try again in a few minutes');
+        } else {
+          setError(error.message);
+        }
         setLoading(false);
       }
     };

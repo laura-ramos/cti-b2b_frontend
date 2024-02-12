@@ -6,8 +6,11 @@ import {
   SortingState,
   getSortedRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
+  Column,
+  Table as TB,
 } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useFetch from "../hooks/useFetch"
 import { Spinner } from 'react-bootstrap';
 
@@ -16,6 +19,29 @@ interface TableProps {
   columns: ColumnDef<any>[];
   url: string,
 }
+
+// Define a default UI for filtering
+const Filter = ({ column, table, }: {
+column: Column<any, unknown>
+  table: TB<any>
+})  => {
+  const columnFilterValue = column.getFilterValue()
+  return (
+    <div className="input-group">
+      <div className="input-group-prepend">
+        <div className="input-group-text"><i className="fa fa-search"></i></div>
+      </div>
+      <input
+        className="form-control form-control-md"
+        value={(columnFilterValue ?? '') as string}
+        onChange={e => {
+          column.setFilterValue(e.target.value || undefined)
+        }}
+      />
+    </div>
+  )
+}
+
 
 export const Table = ({ columns, url }: TableProps) => {
   // get data
@@ -32,11 +58,24 @@ export const Table = ({ columns, url }: TableProps) => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   })
+
+  const changeStyle = (status: boolean) => {
+    let styletext = 'text-dark'
+    if(!status){
+      styletext = 'text-danger'
+    }
+    return styletext
+  }
 
   return (
     <>
-      {error}
+      {error ? 
+      <div className="alert alert-danger" role="alert">
+        {error}
+      </div>
+      : ''}
       {loading && <Spinner animation="grow" variant="dark" />}
       <table className='table table-bordered table-hover table-striped'>
         <thead>
@@ -47,6 +86,7 @@ export const Table = ({ columns, url }: TableProps) => {
                   {header.isPlaceholder
                     ? null
                     :
+                    <>
                     <div
                       {...{
                         className: header.column.getCanSort() ? 'cursor-pointer' : '',
@@ -62,6 +102,10 @@ export const Table = ({ columns, url }: TableProps) => {
                         desc: <i className="fa fa-fw fa-arrow-down"></i>,
                       }[header.column.getIsSorted() as string] ?? null}
                     </div>
+                    {header.column.getCanFilter() ? (
+                      <Filter column={header.column} table={table}/>
+                    ) : null}
+                    </>
                   }
                 </th>
               ))}
@@ -70,7 +114,7 @@ export const Table = ({ columns, url }: TableProps) => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
+            <tr key={row.id} className={row.original.status ? '' : (changeStyle(row.original.status))}>
               {row.getVisibleCells().map(cell => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

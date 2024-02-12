@@ -17,6 +17,7 @@ import './index.css'
 import store from './store/store';
 import Dashboard from "./pages/Dashboard";
 import { Users } from "./modules/users/Users";
+import { Profile } from "./modules/users/Profile";
 
 declare const window: any;
 
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <Users />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

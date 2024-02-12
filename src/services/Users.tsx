@@ -43,11 +43,14 @@ export const createUser = async (user: FormUser) => {
 
 // Get data user by id
 export const getUser =  async (id: number) => {
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    },
+  };
   try {
-    const requestOptions = {
-      method: 'GET',
-      headers: defaultHeaders
-    };
     const response = await fetch(Global.url + '/api/restful/user/profile?id='+id, requestOptions);
     const res_json = await response.json();
     // return data user

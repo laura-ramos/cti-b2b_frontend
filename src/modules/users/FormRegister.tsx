@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import * as Yup from "yup";
-import { createUser, getUser } from '../../services/Users';
+import { createUser, getUser, updateUser } from '../../services/Users';
 import { toast } from 'react-toastify';
 import { FormUser } from "../../interfaces";
 import { useEffect, useState } from 'react';
@@ -38,13 +38,19 @@ export const FormRegister = ({isAddMode, idUser} : Props) => {
     initialValues: userForm,
     validationSchema: validateUser,
     onSubmit: async (values, actions) => {
-      const res = await createUser(values)
-      if(res.status == 'success') {
-        toast.success(res.message)
-        actions.resetForm()
+      if (isAddMode) {
+        const res = await createUser(values)
+        if(res.status == 'success') {
+          toast.success(res.message)
+          actions.resetForm()
+        } else {
+          actions.setErrors(res.validationError ?? [])
+          toast.error(res.message)
+        }
       } else {
-        actions.setErrors(res.validationError ?? [])
-        toast.error(res.message)
+        // update data user
+        const res = await updateUser()
+        console.log(res)
       }
     },
     enableReinitialize: true,
@@ -67,8 +73,7 @@ export const FormRegister = ({isAddMode, idUser} : Props) => {
   }, []);
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="InputName">
           <Form.Label>Name</Form.Label>
           <Form.Control 
@@ -176,6 +181,5 @@ export const FormRegister = ({isAddMode, idUser} : Props) => {
           </Button>
         </div>
       </Form>
-    </>
   )
 }

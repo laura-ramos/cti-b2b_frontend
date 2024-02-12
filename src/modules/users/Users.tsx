@@ -3,11 +3,12 @@ import ContentHeader from "../../components/ContentHeader"
 import { ModalCustom } from "../../components/ModalCustom"
 import { FormRegister } from "./FormRegister"
 import { Table } from "../../components/Table"
+import { ActionButton } from "../../components/ActionButton"
 
 export const Users = () => {
   const [modal, setModal] = useState(false)
   const toggleModal = () => setModal(!modal);
-  const URL_API = 'https://jsonplaceholder.typicode.com/users'
+  const URL_API = 'https://nvi-admanager.docksal.site/api/user2'
   const [idUser, setIdUser] = useState(0)
   const [isAddMode, setIsAddMode] = useState(true)
 
@@ -16,6 +17,10 @@ export const Users = () => {
     {
       header: 'ID',
       accessorKey: 'id',
+    },
+    {
+      header: 'User',
+      accessorKey: 'login',
     },
     {
       header: 'Name',
@@ -33,6 +38,7 @@ export const Users = () => {
       header: 'Photo',
       accessorKey: 'photo',
       enableSorting: false,
+      enableColumnFilter: false,
       cell: (data: any) => (
         <img src={data.getValue() ?? '/img/user.png'} className="img-fluid rounded-circle" width='50px' />
       ),
@@ -41,13 +47,14 @@ export const Users = () => {
       header: 'Actions',
       accessorKey: 'status',
       enableSorting: false,
-      cell: (data: any) => (
-        <div className="btn-group btn-group-sm">
-          <button className="btn btn-sm btn-secondary" onClick={() => editUser(data.row.original.id)}>
-            <i className="fas fa-pencil-alt text-white">
-          </i></button>
-          <button className={`btn btn-sm ${data.getValue() ? 'btn-success' : 'btn-warning disabled'}`} onClick={() => deleteUser(data.row.original.id)}>
-            <i className="fas fa-user-slash"></i>
+      enableColumnFilter: false,
+      cell: (cell: any) => (
+        <div className="btn-group btn-group-sm text-center">
+          <button className="btn btn-sm btn-warning" onClick={() => editUser(cell.row.original.id)}>
+            <i className="fas fa-pencil-alt"></i>
+          </button>
+          <button className={`btn btn-sm btn-danger ${cell.getValue() ? '' : 'disabled'}`} onClick={() => deleteUser(cell.row.original.id)}>
+            <i className="fas fa-trash"></i>
           </button>
         </div>
       ),

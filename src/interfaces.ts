@@ -17,7 +17,7 @@ export interface FormUser {
   photo: string,
   password: string,
   confirm_password: string
-  rol: string,
+  rol?: string,
 }
 
 export interface Actions {

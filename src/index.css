@@ -27,3 +27,9 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.img-user {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
