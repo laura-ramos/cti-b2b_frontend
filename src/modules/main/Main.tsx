@@ -3,14 +3,14 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Outlet, useNavigate} from 'react-router-dom'
 import {PfImage} from '@profabric/react-components';
 
-import { setWindowClass, addWindowClass, removeWindowClass } from '../utils/helpers'
-import Header from '../modules/main/header/Header'
-import Footer from '../modules/main/footer/Footer'
-import MenuSidebar from '../modules/main/menu-sidebar/MenuSidebar'
-import ControlSidebar from '../modules/main/control-sidebar/ControlSidebar'
-import {toggleSidebarMenu} from '../store/reducers/ui';
-import { getAuthStatus } from '../utils/oidc-providers';
-import { setAuthentication } from '../store/reducers/auth';
+import { setWindowClass, addWindowClass, removeWindowClass } from '../../utils/helpers';
+import Header from './header/Header';
+import Footer from './footer/Footer';
+import MenuSidebar from './menu-sidebar/MenuSidebar';
+import ControlSidebar from './control-sidebar/ControlSidebar';
+import {toggleSidebarMenu} from '../../store/reducers/ui';
+import { getAuthStatus } from '../../utils/oidc-providers';
+import { setAuthentication } from '../../store/reducers/auth';
 
 export default function Root() {
   const dispatch = useDispatch()
