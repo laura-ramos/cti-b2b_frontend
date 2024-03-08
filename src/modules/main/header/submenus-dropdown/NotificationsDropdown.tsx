@@ -32,7 +32,7 @@ const NotificationsDropdown = () => {
         <i className="far fa-bell" />
         <span className="badge badge-warning navbar-badge">15</span>
       </div>
-      <div slot="menu">
+      <div slot="menu" className='header-submenu'>
         <span className="dropdown-item dropdown-header">
           {t<string>('header.notifications.count', {quantity: '15'})}
         </span>

@@ -114,7 +114,7 @@ const Login = () => {
                   autoFocus
                 />
                 <div className="input-group-append">
-                  <button type="button" className="btn">
+                  <button type="button" className="btn" tabIndex={-1}>
                     <i className="fas fa-arrow-right text-white" />
                   </button>
                 </div>

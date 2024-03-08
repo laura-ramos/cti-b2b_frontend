@@ -3,14 +3,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Outlet, useNavigate} from 'react-router-dom'
 import {PfImage} from '@profabric/react-components';
 
-import { setWindowClass, addWindowClass, removeWindowClass } from '../../utils/helpers';
-import Header from './header/Header';
-import Footer from './footer/Footer';
-import MenuSidebar from './menu-sidebar/MenuSidebar';
-import ControlSidebar from './control-sidebar/ControlSidebar';
-import {toggleSidebarMenu} from '../../store/reducers/ui';
 import { getAuthStatus } from '../../utils/oidc-providers';
 import { setAuthentication } from '../../store/reducers/auth';
+import { addWindowClass, removeWindowClass, calculateWindowSize } from '../../utils/helpers';
+import Header from '../../modules/main/header/Header';
+import Footer from '../../modules/main/footer/Footer';
+import MenuSidebar from '../../modules/main/menu-sidebar/MenuSidebar';
+import ControlSidebar from '../../modules/main/control-sidebar/ControlSidebar';
+import {setWindowSize, toggleSidebarMenu} from '../../store/reducers/ui';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 export default function Root() {
   const dispatch = useDispatch()
@@ -20,11 +21,9 @@ export default function Root() {
   const [isAppLoaded, setIsAppLoaded] = useState(false);
   const navigate = useNavigate();
   
-  // Add AdminLTE CSS classes to Body tag
-  setWindowClass('hold-transition sidebar-mini layout-fixed')
-  
   // Reading all properties to control user interface appearance
   const screenSize = useSelector((state: any) => state.ui.screenSize)
+  const windowSize = useWindowSize();
 
   const controlSidebarCollapsed = useSelector(
     (state: any) => state.ui.controlSidebarCollapsed
@@ -93,6 +92,13 @@ export default function Root() {
       addWindowClass('sidebar-collapse')
     }
   }, [screenSize, menuSidebarCollapsed])
+
+  useEffect(() => {
+    const size = calculateWindowSize(windowSize.width);
+    if (screenSize !== size) {
+      dispatch(setWindowSize(size));
+    }
+  }, [windowSize]);
 
   const getAppTemplate = useCallback(() => {
     if (!isAppLoaded) {
